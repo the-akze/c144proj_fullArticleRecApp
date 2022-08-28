@@ -50,10 +50,25 @@ export default class App extends React.Component
   }
 
   renderItem = ({item, index}) => {
+    console.log(item);
     return (
       <View style={styles.listArticle}>
         <Text style={styles.listArticleName}>
           {item.title}
+        </Text>
+        <Text style={styles.listArticleSubtitle}>
+          {item.lang} • {item.url}
+        </Text>
+        <View style={{height: 20}}></View>
+        <Text style={styles.listArticleContent}>
+          {(() => {
+            try {
+              return item.text.length > 400 ? item.text.substring(0, 400) + " ..." : item.text
+            }
+            catch {
+              return "";
+            }
+          })()}
         </Text>
       </View>
     )
@@ -96,18 +111,32 @@ const styles = StyleSheet.create({
   },
   listArticle: {
     width: "100%",
-    display: 'flex',
-    flexDirection: 'row',
-    backgroundColor: "gray",
+    // display: 'flex',
+    // flexDirection: 'row',
+    backgroundColor: "white",
+    borderColor: "gray",
+    borderWidth: 2,
     borderRadius: 20,
     marginBottom: 5,
     justifyContent: 'space-between',
     padding: 10,
-    alignItems: 'center'
+    // alignItems: 'center'
   },
   listArticleName: {
     fontSize: 20,
-    color: 'white',
+    color: 'black',
+  },
+  listArticleSubtitle: {
+    color: "gray",
+    fontStyle: 'italic'
+  },
+  listArticleContent: {
+    maxWidth: 800,
+    fontSize: 12,
+    alignSelf: 'center',
+    backgroundColor: 'silver',
+    borderRadius: 10,
+    padding: 8
   },
   articleButton: {
     backgroundColor: "silver",

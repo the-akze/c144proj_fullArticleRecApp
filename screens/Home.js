@@ -31,6 +31,10 @@ export default class App extends React.Component
       <View style={styles.container}>
         <Text style={styles.title}>Articles</Text>
 
+        <Text>
+          Only shows 20 at a time (full data has over 2000) to prevent lag.
+        </Text>
+
         <TouchableOpacity style={styles.button} onPress={this.fetchArticles}>
           <Text>
             Refresh
@@ -38,7 +42,7 @@ export default class App extends React.Component
         </TouchableOpacity>
 
         <FlatList
-        data={this.state.articles}
+        data={this.state.articles.slice(0, 20)}
         keyExtractor={(item, index) => {return index.toString()}}
         renderItem={this.renderItem}
         style={styles.flatList}
@@ -132,7 +136,9 @@ const styles = StyleSheet.create({
     width: "100%",
     display: 'flex',
     flexDirection: 'row',
-    backgroundColor: "gray",
+    backgroundColor: "white",
+    borderColor: "gray",
+    borderWidth: 2,
     borderRadius: 20,
     marginBottom: 5,
     justifyContent: 'space-between',
@@ -141,7 +147,19 @@ const styles = StyleSheet.create({
   },
   listArticleName: {
     fontSize: 20,
-    color: 'white',
+    color: 'black',
+  },
+  listArticleSubtitle: {
+    color: "gray",
+    fontStyle: 'italic'
+  },
+  listArticleContent: {
+    maxWidth: 800,
+    fontSize: 12,
+    alignSelf: 'center',
+    backgroundColor: 'silver',
+    borderRadius: 10,
+    padding: 8
   },
   articleButton: {
     backgroundColor: "silver",
